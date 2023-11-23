@@ -29,9 +29,6 @@ public class AsessoftwareApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		/**
-		 * descomentar para generar Data en Base de datos
-		 *
 		List<TipoDocumentos> tipoDocumentos = new ArrayList<>();
 		TipoDocumentos documento1 = new TipoDocumentos("Cedula");
 		tipoDocumentos.add(documento1);
@@ -46,8 +43,6 @@ public class AsessoftwareApplication implements CommandLineRunner {
 		Mecanicos mecanicos = new Mecanicos(111482387L,tipoDocumentos1.get(),"Warlen", "Esteban", "Vinasco", "Largo",
 				"3234913526", "calle 33#7-47", "wvl0213@hotmai.com", 'A');
 
-		mecanicoRepositorio.save(mecanicos);
-		 */
 
 	}
 }
