@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Usuario</title>
+    <!-- Agregar los enlaces a los estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Car Center</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/mecanicos">Mecanicos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mecanicos/nuevo">Nuevos Mecanico</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mantenimientos">Mantenimientos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mantenimientos/nuevo">Nuevos Mantenimientos</a>
+            </li>
+            <!-- Agrega más elementos de menú según tus controladores -->
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Formulario creacion de mecanico</h2>
+
+    <!-- Formulario -->
+    <form th:object="${mecanicos}" th:action="@{/mecanicos}" method="post">
+        <div class="form-group">
+            <label for="documento">Documento:</label>
+            <input type="text" class="form-control" id="documento" th:field="*{documento}" pattern="[0-9]+" title="Ingrese solo números" maxlength="20" required/>
+            <small id="documentoHelp" class="form-text text-muted">Ingrese solo números en este campo.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="tipoDocumento">Tipo de Documento:</label>
+            <select class="form-control" id="tipoDocumento" th:field="*{tipoDocumento}">
+                <option th:each="tipoDocumento : ${tiposDocumentos}" th:value="${tipoDocumento.id}"
+                        th:text="${tipoDocumento.descripcion}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="primerNombre">Primer Nombre:</label>
+            <input type="text" class="form-control" id="primerNombre" th:field="*{primerNombre}" maxlength="30" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="segundoNombre">Segundo Nombre:</label>
+            <input type="text" class="form-control" id="segundoNombre" th:field="*{segundoNombre}" maxlength="30" />
+        </div>
+
+        <div class="form-group">
+            <label for="primerApellido">Primer Apellido:</label>
+            <input type="text" class="form-control" id="primerApellido" th:field="*{primerApellido}" maxlength="30" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="segundoApellido">Segundo Apellido:</label>
+            <input type="text" class="form-control" id="segundoApellido" th:field="*{segundoApellido}" maxlength="30" required />
+        </div>
+
+        <div class="form-group">
+            <label for="celular">Celular:</label>
+            <input type="text" class="form-control" id="celular" th:field="*{celular}" pattern="[0-9]+" maxlength="10" title="Ingrese solo números" required/>
+            <small id="celularHelp" class="form-text text-muted">Ingrese solo números en este campo.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="direccion">Direccion:</label>
+            <input type="text" class="form-control" id="direccion" th:field="*{direccion}" maxlength="200" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="100" required/>
+            <small id="emailHelp" class="form-text text-muted">Ingrese un correo electrónico válido.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="estado">Tipo de Documento:</label>
+            <select class="form-control" id="estado" th:field="*{estado}">
+                <option value="A">ACTIVO</option>
+                <option value="I">INACTIVO</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar Mecanico</button>
+    </form>
+</div>
+
+<!-- Agregar los enlaces a los scripts de Bootstrap y jQuery (necesarios para algunos componentes) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
