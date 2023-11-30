@@ -12,7 +12,7 @@ import java.util.List;
 public interface MecanicoRepositorio extends JpaRepository<Mecanicos, Long> {
     @Query(value = "select mc.* from mecanicos mc\n" +
             "inner join public.mantenimientos m on mc.documento = m.documento\n" +
-            "where m.fecha_fin is not null\n" +
+            "where m.fecha_fin is null\n" +
             "GROUP BY mc.documento\n" +
             "order by sum(m.horas_laboradas) ASC LIMIT 10;", nativeQuery = true)
     List<Mecanicos> findTop10ByOrderByHorasAsignadasAsc();

@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+                template="/templates/template.xhtml">
+
+<h:head>
+    <title>Formulario de Mecánico</title>
+</h:head>
+
+    <ui:define name="content">
+    <h:form id="mecanicoForm">
+        <p:panelGrid columns="2" columnClasses="label, value">
+            <p:outputLabel for="documento" value="Documento:" />
+            <p:inputNumber id="documento" value="#{mecanicoBean.newMecanico.documento}" required="true"
+                           requiredMessage="Campo requerido"
+                           decimalPlaces="0"
+                           min="1000000000"
+                           max="9999999999" />
+
+            <p:outputLabel for="tipoDocumento" value="Tipo de Documento:" />
+            <p:selectOneMenu id="tipoDocumento" value="#{mecanicoBean.tipoDocumentos}">
+                <f:selectItems value="#{mecanicoBean.listaTiposDocumento}" var="tipoDocumento"
+                               itemLabel="#{tipoDocumento.descripcion}" itemValue="#{tipoDocumento.id}" />
+            </p:selectOneMenu>
+
+            <p:outputLabel for="primerNombre" value="Primer Nombre:" />
+            <p:inputText id="primerNombre" value="#{mecanicoBean.newMecanico.primerNombre}" maxlength="30" required="true" />
+
+            <p:outputLabel for="segundoNombre" value="Segundo Nombre:" />
+            <p:inputText id="segundoNombre" value="#{mecanicoBean.newMecanico.segundoNombre}" maxlength="30" />
+
+            <p:outputLabel for="primerApellido" value="Primer Apellido:" />
+            <p:inputText id="primerApellido" value="#{mecanicoBean.newMecanico.primerApellido}" maxlength="30" required="true" />
+
+            <p:outputLabel for="segundoApellido" value="Segundo Apellido:" />
+            <p:inputText id="segundoApellido" value="#{mecanicoBean.newMecanico.segundoApellido}" maxlength="30" required="true" />
+
+            <p:outputLabel for="telefono" value="Telefono:" />
+            <p:inputMask id="telefono" value="#{mecanicoBean.newMecanico.celular}" required="true"
+                         requiredMessage="Campo requerido"
+                         mask="(999) 999-9999"  />
+
+            <p:outputLabel for="direccion" value="Direccion:" />
+            <p:inputText id="direccion" value="#{mecanicoBean.newMecanico.direccion}"  maxlength="20" required="true"/>
+
+            <p:outputLabel for="email" value="Email:" />
+            <p:inputText id="email" value="#{mecanicoBean.newMecanico.email}"  required="true"
+                         validatorMessage="Ingrese un correo electrónico válido">
+                <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+            </p:inputText>
+
+
+            <p:outputLabel for="estado" value="Estado:" />
+            <p:selectOneMenu id="estado" value="#{mecanicoBean.newMecanico.estado}">
+                <f:selectItem itemValue="A" itemLabel="Activo" />
+                <f:selectItem itemValue="I" itemLabel="Inactivo" />
+            </p:selectOneMenu>
+        </p:panelGrid>
+
+        <p:commandButton value="Guardar" action="#{mecanicoBean.save}" update=":messages" />
+    </h:form>
+
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+    </ui:define>
+
+</ui:composition>
+

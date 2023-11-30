@@ -22,7 +22,7 @@ public class Mecanicos {
     private String primerApellido;
     @Column(name="segundo_apellido", nullable = false,length = 30)
     private String segundoApellido;
-    @Column(name="celular", nullable = false,length = 10)
+    @Column(name="celular", nullable = false,length = 20)
     private String celular;
     @Column(name="direccion", nullable = false,length = 20)
     private String direccion;

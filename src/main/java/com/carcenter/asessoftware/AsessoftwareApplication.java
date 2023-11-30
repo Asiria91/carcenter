@@ -4,45 +4,48 @@ import com.carcenter.asessoftware.entidad.Mecanicos;
 import com.carcenter.asessoftware.entidad.TipoDocumentos;
 import com.carcenter.asessoftware.repositorio.MecanicoRepositorio;
 import com.carcenter.asessoftware.repositorio.TipoDocumentoRepositorio;
+import com.sun.faces.config.ConfigureListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 
+import javax.faces.webapp.FacesServlet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
-public class AsessoftwareApplication implements CommandLineRunner {
+public class AsessoftwareApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(AsessoftwareApplication.class, args);
 	}
 
-	@Autowired
-	private TipoDocumentoRepositorio tipoDocumentoRepositorio;
-
-	@Autowired
-	private MecanicoRepositorio mecanicoRepositorio;
-
-
-	@Override
-	public void run(String... args) throws Exception {
-		List<TipoDocumentos> tipoDocumentos = new ArrayList<>();
-		TipoDocumentos documento1 = new TipoDocumentos("Cedula");
-		tipoDocumentos.add(documento1);
-		TipoDocumentos documento2 = new TipoDocumentos("Cedula Extranjeria");
-		tipoDocumentos.add(documento2);
-		TipoDocumentos documento3 = new TipoDocumentos("Pasaporte");
-		tipoDocumentos.add(documento3);
-		tipoDocumentoRepositorio.saveAll(tipoDocumentos);
-
-		Optional<TipoDocumentos> tipoDocumentos1 = Optional.of(new TipoDocumentos());
-		tipoDocumentos1 = tipoDocumentoRepositorio.findById(Long.valueOf(1));
-		Mecanicos mecanicos = new Mecanicos(111482387L,tipoDocumentos1.get(),"Warlen", "Esteban", "Vinasco", "Largo",
-				"3234913526", "calle 33#7-47", "wvl0213@hotmai.com", 'A');
-
-
+	@Bean
+	public ServletRegistrationBean facesServletRegistration() {
+		ServletRegistrationBean registration = new ServletRegistrationBean<>(new FacesServlet(), "*.xhtml");
+		registration.setLoadOnStartup(1);
+		registration.addUrlMappings("*.jr");
+		return registration;
 	}
+
+	@Bean
+	public ServletContextInitializer servletContextInitializer() {
+		return servletContext -> {
+			servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
+			//servletContext.setInitParameter("primefaces.THEME", "sunny");
+		};
+	}
+
+	@Bean
+	public ServletListenerRegistrationBean<ConfigureListener> jsfConfigureListener() {
+		return new ServletListenerRegistrationBean<>(new ConfigureListener());
+	}
+
+
 }

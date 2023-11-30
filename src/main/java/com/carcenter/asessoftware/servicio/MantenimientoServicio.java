@@ -8,4 +8,5 @@ public interface MantenimientoServicio {
     public List<Mantenimientos> listarMantenimientos();
 
     public Mantenimientos guardarMantenimiento(Mantenimientos mantenimientos);
+
 }
